@@ -1,0 +1,26 @@
+{
+  "name": "firebase-glacier",
+  "version": "0.2.0",
+  "description": "Specification and tools to document firebase projects",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/manyrdz/firebase-glacier"
+  },
+  "keywords": [
+    "firebase",
+    "tools",
+    "documentation",
+    "glacier"
+  ],
+  "author": "Manuel Rodríguez",
+  "license": "ISC",
+  "homepage": "manyrdz.me/firebase-glacier",
+  "dependencies": {
+    "path": "^0.12.7",
+    "yamljs": "^0.2.8"
+  }
+}
