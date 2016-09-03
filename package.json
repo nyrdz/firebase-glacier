@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "github.com/manyrdz/firebase-glacier"
+    "url": "https://github.com/manyrdz/firebase-glacier"
   },
   "keywords": [
     "firebase",
@@ -18,7 +18,7 @@
   ],
   "author": "Manuel Rodríguez",
   "license": "ISC",
-  "homepage": "manyrdz.me/firebase-glacier",
+  "homepage": "http://manyrdz.me/firebase-glacier",
   "dependencies": {
     "path": "^0.12.7",
     "yamljs": "^0.2.8"
