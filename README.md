@@ -112,24 +112,24 @@ Contains the database rules design
 
 ----------
 
-##Preprocessors
+##Processors
 
 At this point, the project counts with just the database rules processor. It'll read the **glacier document** and serialize the `database` field in json format and will be saved into a file ready to be imported to the firebase project.
 
-To invoke all preprocessors (database rules preprocessor and storage rules preprocessor, for now) just:
+To invoke all processors (database rules processor and storage rules processor, for now) just:
 
     var glacier = require('firebase-glacier')
     glacier.build()
 
 It'll read the glacier document from `./firebase_spec/glacier.yml` and output `./firebase_spec/database.rules.json` and `./firebase_spec/storage.rules.json`
 
-###Database rules preprocessor
-The **database rules preprocessor** will ignore all metadata fields and remove the leading slashes from any child of the `database` root field and
+###Database rules processor
+The **database rules processor** will ignore all metadata fields and remove the leading slashes from any child of the `database` root field and
 
     var glacier = require('firebase-glacier')
     glacier.buildDbRules()
 
-###Storage rules preprocessor
+###Storage rules processor
 Not implemented yet
 
 ###Html generator
@@ -138,7 +138,7 @@ Not implemented yet
 ----------
 
 ##Metadata
-The json document used to define rules in firebase says little about what they are meant for when you're not the one that designed those rules (unless you know how security rules work). For this reason, glacier reserves the `$` character to define arbitrary metadata in the glacier document. A metadata field is meant to be used by a preprocessor.
+The json document used to define rules in firebase says little about what they are meant for when you're not the one that designed those rules (unless you know how security rules work). For this reason, glacier reserves the `$` character (at the start of the field) to define arbitrary metadata in the glacier document. A metadata field is meant to be used by a processor.
 
 For example:
 
@@ -150,7 +150,7 @@ For example:
 	        /messages:
 	            /$key:
 	                /$uid:
-	                    @notes: Message owner
+	                    $notes: Message owner
 	                /message:
 	                    .validate: "newData.isString()"
 
@@ -167,11 +167,11 @@ Another one:
 				    - Offline
 				    - Suspended
 				    - Banned
-In this example we defined the `$acceptedValues` metadata field. This one can be used by the **database rules preprocessor** to generate the `.validate` field using the array values instead of manually writing a cumbersome long string to accomplish that rule:
+In this example we defined the `$acceptedValues` metadata field. This one can be used by the **database rules processor** to generate the `.validate` field using the array values instead of manually writing a cumbersome long string to accomplish that rule:
 `(newData.val() === 'Online') || (newData.val() === 'Offline') || ...`
 By the way, this feature is **not implemented yet**
 
 ----------
 
 ##Middleware
-For the **database rules preprocessor**, the registered middleware (can be more than one of course) is the first agent to handle the **glacier document**. Its input is an object representation of the **glacier document**. Its output must be the same object already preprocessed. After every middleware is invoked, the **database rules preprocessor** will continue its job
+For the **database rules processor**, the registered middleware (can be more than one of course) is the first agent to handle the **glacier document**. Its input is an object representation of the **glacier document**. Its output must be the same object already processed. After every middleware is invoked, the **database rules processor** will continue its job
