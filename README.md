@@ -60,16 +60,6 @@ Contains information relevant to the project users
 	    termsOfService: terms
 	    license: Copyright 2016 MyApp
 	    config:
-	        android:
-	            apiKey: none
-	            authDomain: none
-	            databaseURL: none
-	            storageBucket: none
-	        ios:
-	            apiKey: none
-	            authDomain: none
-	            databaseURL: none
-	            storageBucket: none
 	        web:
 	            apiKey: none
 	            authDomain: none
