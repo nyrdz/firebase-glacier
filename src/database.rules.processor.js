@@ -2,7 +2,7 @@ var YAML = require('yamljs')
 var path = require('path')
 var fs = require('fs')
 
-module.exports = () => {
+module.exports = (middleware = []) => {
     const pathToYaml = './firebase_spec/glacier.yml'
     const ouputFilename = './firebase_spec/database.rules.json'
 
@@ -14,23 +14,9 @@ module.exports = () => {
         // Generate object from yaml data
         var glacier = YAML.parse(data)
 
-        // Get decorators object from glacier
-        var decorators = glacier.decorators !== undefined ? glacier.decorators : {}
-
-        // Replace decorators with values
-        for(var deco in decorators) {
-            if(decorators.hasOwnProperty(deco)) {
-                data = data.replace(new RegExp('@' + deco, 'g'), decorators[deco])
-            }
-        }
-
-        // Generate new glacier without decorators object
-        glacier = {}
-        var tmp_glacier = YAML.parse(data)
-        for(var key in tmp_glacier) {
-            if(key !== 'decorators') {
-                glacier[key] = tmp_glacier[key]
-            }
+        // Invoke middleware
+        for(var i = 0; i < middleware.length; i++) {
+            glacier = middleware[i](glacier)
         }
 
         // Generate new object without metadata fields (those starting with $)
