@@ -4,8 +4,21 @@ var serve = () => {
 
 }
 
-var build = (pathToYaml, databaseRulesFilename) => {
-    buildDbRules(pathToYaml, databaseRulesFilename)
+var build = () => {
+    buildDbRules()
+}
+
+var use = {}
+use.database = () => {
+    
+}
+
+use.storage = () => {
+
+}
+
+use.html = () => {
+
 }
 
 module.exports = {

@@ -2,14 +2,9 @@ var YAML = require('yamljs')
 var path = require('path')
 var fs = require('fs')
 
-module.exports = (pathToYaml, ouputFilename) => {
-    if(!pathToYaml) {
-        pathToYaml = './firebase_spec/glacier.yml'
-    }
-
-    if(!ouputFilename) {
-        ouputFilename = './firebase_spec/database.rules.json'
-    }
+module.exports = () => {
+    const pathToYaml = './firebase_spec/glacier.yml'
+    const ouputFilename = './firebase_spec/database.rules.json'
 
     fs.readFile(path.resolve(pathToYaml), 'utf8', (err, data) => {
         if(err) {
