@@ -3,7 +3,7 @@ var path = require('path')
 var fs = require('fs')
 
 module.exports = (middleware = []) => {
-    const pathToYaml = './firebase_spec/glacier.yml'
+    const pathToYaml = './glacier.yml'
     const ouputFilename = './firebase_spec/database.rules.json'
 
     fs.readFile(path.resolve(pathToYaml), 'utf8', (err, data) => {
