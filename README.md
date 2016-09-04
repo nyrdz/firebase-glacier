@@ -1,6 +1,21 @@
 #firebase-glacier
 Specification and tools to document firebase projects
 
+--------
+
+##Usage
+
+###To use as command line utility
+`npm install -g firebase-glacier`
+
+`firebase-glacier` in the terminal will read `./glacier.yml` and output at `./firebase_spec/`
+
+###To use as module
+`npm install --save-dev firebase-glacier`
+
+--------
+
+##Motivations
 This project was born from my necessity of a better way to design and write firebase's database rules
 
 I based the main idea of the project on [swagger](http://swagger.io/), which is an open standard to define language-agnostic interfaces to REST APIs. With glacier, I adapted this concepts and ideas to fit a firebase project
