@@ -1,8 +1,11 @@
 {
   "name": "firebase-glacier",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Specification and tools to document firebase projects",
   "main": "index.js",
+  "bin":{
+    "firebase-glacier": "./bin/firebase-glacier.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
