@@ -4,15 +4,15 @@ var fs = require('fs')
 
 module.exports = (middleware = []) => {
     const pathToYaml = './glacier.yml'
-    const ouputFilename = './firebase_spec/database.rules.json'
+    const outputPath = './firebase_spec/'
 
     fs.readFile(path.resolve(pathToYaml), 'utf8', (err, data) => {
         if(err) {
-            return console.log(err)
+            return console.log('Missing glacier document at current directory (./glacier.yml)')
         }
 
         // Generate object from yaml data
-        var glacier = YAML.parse(data)
+        var glacier = YAML.parse(data) || {}
 
         // Invoke middleware
         for(var i = 0; i < middleware.length; i++) {
@@ -64,8 +64,13 @@ module.exports = (middleware = []) => {
         }
         db = removeSlashes(db)
 
-        // Write to ouputFilename
-        fs.writeFile(path.resolve(ouputFilename), JSON.stringify({ rules: db }, null, 2), 'utf8', (err) => {
+        // Create outputPath directory if doesn't exists
+        if (!fs.existsSync(outputPath)){
+            fs.mkdirSync(outputPath);
+        }
+
+        // Write to outputPath
+        fs.writeFile(path.resolve(outputPath + 'database.rules.json'), JSON.stringify({ rules: db }, null, 2) + '\n', 'utf8', (err) => {
             if(err) {
                 console.log(err)
             }
