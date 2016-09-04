@@ -175,3 +175,55 @@ By the way, this feature is **not implemented yet**
 
 ##Middleware
 For the **database rules processor**, the registered middleware (can be more than one of course) is the first agent to handle the **glacier document**. Its input is an object representation of the **glacier document**. Its output must be the same object already processed. After every middleware is invoked, the **database rules processor** will continue its job
+
+###Built-in middleware
+####decorators
+This middleware allows to define arbitrary decorators that'll get replaced with the values they're associated. Decorators are defined as fields of a `decorators` field placed at the root of the glacier document.
+Currently, **the use of decorators inside the definition of others decorators is not supported**.
+
+Example:
+
+    glacier: ...
+    info: ...
+    auth: ...
+    database: ...
+    storage: ...
+    decorators:
+	    owner: "auth.uid === $uid"
+	    client: "root.child('clients').hasChild(auth.uid)"
+	    admin: "root.child('admins').hasChild(auth.uid)"
+	    create: "(!data.exists() && newData.exists())"
+	    update: "(data.exists() && newData.exists())"
+	    delete: "(data.exists() && !newData.exists())"
+	    timestamp: "newData.val() === now"
+	    isString: "newData.isString()"
+	    starsRate: "(newData.val() === 1 || newData.val() === 2 || newData.val() === 3 || newData.val() === 4 || newData.val() === 5)"
+
+Usage:
+
+    database:
+	    /users:
+		    .read: true
+		    /$uid:
+			    .write: @owner
+			    /email:
+				    .validate: @isString
+			    /name
+				    .validate: @isString
+			    /$other:
+				    .validate: false
+	    /products:
+		    .read: true
+			/$key:
+				.write: @admin
+				/name:
+					.validate: @isString
+				/rating:
+					/$uid:
+						.write: @client
+						/stars:
+							.validate: @starsRate
+						/$other:
+							.validate: false
+				/$other:
+					.validate: false
