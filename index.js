@@ -1,5 +1,6 @@
 var database_rules_processor = require('./src/database.rules.processor')
 var middleware_decorators = require('./src/middleware.decorators')
+var middleware_validate = require('./src/middleware.validate')
 
 var serve = () => {
 
@@ -16,6 +17,7 @@ module.exports = {
         database: database_rules_processor
     },
     middleware: {
-        decorators: middleware_decorators
+        decorators: middleware_decorators,
+        validate: middleware_validate
     }
 }

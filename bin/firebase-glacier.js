@@ -3,5 +3,6 @@
 var glacier = require('firebase-glacier')
 
 glacier.build([
-    glacier.middleware.decorators
+    glacier.middleware.decorators,
+    glacier.middleware.validate
 ])
