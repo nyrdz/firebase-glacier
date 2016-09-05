@@ -29,7 +29,7 @@ module.exports = (glacier) => {
 
         return objWithValidate
     }
-    database = generateValidate(database)
+    glacier.database = generateValidate(database)
 
-    return database
+    return glacier
 }

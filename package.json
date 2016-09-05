@@ -1,6 +1,6 @@
 {
   "name": "firebase-glacier",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Specification and tools to document firebase projects",
   "main": "index.js",
   "bin":{
