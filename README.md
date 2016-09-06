@@ -10,6 +10,8 @@ Specification and tools to document firebase projects
 
 `firebase-glacier` in the terminal will read `./glacier.yml` and output at `./firebase_spec/`
 
+`firebase-glacier init` in the terminal will create `./glacier.yml` and output an initial build at `./firebase_spec/`
+
 ###To use as module
 `npm install --save-dev firebase-glacier`
 
