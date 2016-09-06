@@ -6,6 +6,13 @@ var fs = require('fs')
 
 var BEHAVIOR = 'BUILD'
 
+const build = () => {
+    glacier.build([
+        glacier.middleware.decorators,
+        glacier.middleware.validate
+    ])
+}
+
 const run = () => {
     process.argv.forEach((val) => {
         if(val === 'init') {
@@ -14,10 +21,7 @@ const run = () => {
     })
 
     if(BEHAVIOR === 'BUILD') {
-        glacier.build([
-            glacier.middleware.decorators,
-            glacier.middleware.validate
-        ])
+        build()
     }
 
     if(BEHAVIOR === 'INIT') {
@@ -27,6 +31,8 @@ const run = () => {
             fs.writeFile(path.resolve('./glacier.yml'), init_template, 'utf8', (err) => {
                 if(err) {
                     console.log(err)
+                } else {
+                    build()
                 }
             })
         }
@@ -59,6 +65,8 @@ auth:
     oauthRedirectDomains:
         - localhost
     allowMultipleAccountsWithSameEmail: false
-database:`
+database:
+    .read: true
+    .write: true`
 
 run()
